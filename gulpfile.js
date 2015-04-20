@@ -4,7 +4,9 @@ tinypng = require('gulp-tinypng'),
 sftp = require('gulp-sftp'),
 copy = require('gulp-copy'),
 clean = require('gulp-clean'),
-config = require('./config.json');
+config = require('./config.json'),
+imagemin   = require('gulp-imagemin'),
+    pngquant   = require('imagemin-pngquant');
 
 //默认任务
 gulp.task('default', function () {
@@ -29,6 +31,17 @@ gulp.task('delete', function () {
 gulp.task('clean', function(){
   gulp.run('copy');
   gulp.run('delete');
+});
+
+//压缩图片
+gulp.task('img', function () {
+    return gulp.src('img/*')
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
+        }))
+        .pipe(gulp.dest('./'));
 });
 
 //上传任务
