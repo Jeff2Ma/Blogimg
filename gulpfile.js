@@ -9,7 +9,7 @@ imagemin   = require('gulp-imagemin'),
     pngquant   = require('imagemin-pngquant');
 
 //默认任务
-gulp.task('default', function () {
+gulp.task('tiny', function () {
     gulp.src('img/*.{png,jpg,jpeg}')
         .pipe(tinypng(config.tinypngapi))
         .pipe(gulp.dest('./'));
@@ -34,7 +34,7 @@ gulp.task('clean', function(){
 });
 
 //压缩图片
-gulp.task('img', function () {
+gulp.task('default', function () {
     return gulp.src('img/*')
         .pipe(imagemin({
             progressive: true,
